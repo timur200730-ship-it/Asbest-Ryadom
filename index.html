@@ -7,45 +7,767 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoRCz0fF5L9J9k=" crossorigin="">
 <title>Рядом — Асбест</title>
 <style>
-:root{--bg:#f4f5f1;--paper:#fff;--ink:#17221e;--muted:#69736d;--line:#e1e5df;--accent:#e8ff75;--green:#244b3a;--soft:#e9eee8;--shadow:0 12px 32px #15231a12}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit}.shell{max-width:1240px;margin:auto;padding:0 24px}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:20px;letter-spacing:-.7px}.brand-mark{width:36px;height:36px;border-radius:12px;background:var(--accent);display:grid;place-items:center;font-size:20px}.brand small{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0}.top-actions{display:flex;gap:9px;align-items:center}.pill,.btn{border:1px solid var(--line);border-radius:999px;padding:10px 15px;background:#fff;font-weight:700}.btn.dark{background:var(--ink);color:white;border-color:var(--ink)}.btn.lime{background:var(--accent);border-color:var(--accent)}.hero{background:var(--ink);color:white;border-radius:28px;padding:34px;position:relative;overflow:hidden;min-height:244px;display:flex;align-items:center}.hero:after{content:"";position:absolute;width:290px;height:290px;border:1px solid #ffffff22;border-radius:50%;right:4%;top:-75px;box-shadow:0 0 0 34px #ffffff08,0 0 0 70px #ffffff05}.hero-content{max-width:650px;position:relative;z-index:1}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.7px;color:var(--accent);font-weight:800}.hero h1{font-size:clamp(34px,5vw,57px);line-height:1.02;letter-spacing:-2px;margin:12px 0}.hero p{color:#d4ddd5;max-width:540px;margin:0 0 22px}.searchbox{background:white;border-radius:16px;display:flex;gap:10px;padding:7px;max-width:620px}.searchbox input{border:0;outline:0;flex:1;min-width:0;padding:10px 12px;color:var(--ink)}.section{padding:30px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:17px}.section h2{font-size:25px;letter-spacing:-.8px;margin:0}.sub{color:var(--muted);margin:5px 0 0}.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab{border:1px solid var(--line);border-radius:999px;padding:9px 14px;background:var(--paper);font-weight:700;color:#5d6860}.tab.active{background:var(--ink);border-color:var(--ink);color:#fff}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 3px 12px #13221a05}.poster{height:158px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;background:#e5eadc;position:relative;overflow:hidden}.poster:after{content:"";position:absolute;width:170px;height:170px;border:1px solid #18231e25;border-radius:50%;right:-45px;bottom:-80px;box-shadow:0 0 0 18px #18231e07,0 0 0 38px #18231e05}.poster.orange{background:#f4d8bb}.poster.lilac{background:#e1dff1}.poster.blue{background:#d7e8e6}.poster .date{font-size:12px;font-weight:850;letter-spacing:1px;text-transform:uppercase;z-index:1}.poster .symbol{font-size:46px;line-height:1;z-index:1}.card-body{padding:17px}.tag{display:inline-flex;background:var(--soft);padding:5px 9px;border-radius:99px;font-size:11px;font-weight:800;color:var(--green)}.card h3{font-size:18px;letter-spacing:-.3px;line-height:1.2;margin:10px 0 7px}.meta{font-size:13px;color:var(--muted);display:flex;gap:7px;align-items:flex-start;margin-top:8px}.card-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);padding-top:13px;margin-top:14px;font-size:13px;font-weight:750}.textlink{border:0;background:none;font-weight:800;padding:0;color:var(--green)}.map-wrap{display:grid;grid-template-columns:1.3fr .7fr;gap:16px}.map-box{height:390px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#e8ece6}.map-side{display:flex;flex-direction:column;gap:10px}.place-row{display:flex;gap:12px;padding:14px;background:white;border:1px solid var(--line);border-radius:15px}.place-icon{width:42px;height:42px;flex:0 0 auto;background:var(--soft);border-radius:12px;display:grid;place-items:center;font-size:20px}.place-row h3{margin:1px 0 3px;font-size:15px}.place-row p{margin:0;font-size:12px;color:var(--muted)}.directory{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.org{padding:17px;background:white;border:1px solid var(--line);border-radius:17px;display:flex;gap:12px}.org .place-icon{width:48px;height:48px}.org h3{font-size:15px;margin:2px 0 4px}.org p{font-size:12px;color:var(--muted);margin:0}.empty{padding:24px;border:1px dashed #b9c4b9;border-radius:16px;color:var(--muted);text-align:center;grid-column:1/-1}.footer{border-top:1px solid var(--line);padding:24px 0 36px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px}.admin-panel{display:none;background:white;border:1px solid var(--line);padding:20px;border-radius:20px;margin:20px 0}.admin-panel.open{display:block}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.admin-grid input,.admin-grid select,.admin-grid textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fbfcfa}.admin-grid textarea{min-height:80px;grid-column:1/-1}.admin-list{margin-top:15px;display:grid;gap:8px}.admin-item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;background:var(--bg);border-radius:10px}.notice{font-size:12px;color:var(--muted);margin-top:10px}.mobile-nav{display:none}.leaflet-popup-content-wrapper{border-radius:12px}.leaflet-container{font:inherit}.hide{display:none!important}
+:root{--bg:#f4f5f1;--paper:#fff;--ink:#17221e;--muted:#69736d;--line:#e1e5df;--accent:#e8ff75;--green:#244b3a;--soft:#e9eee8;--shadow:0 12px 32px #15231a12}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit}.shell{max-width:1240px;margin:auto;padding:0 24px}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:20px;letter-spacing:-.7px}.brand-mark{width:36px;height:36px;border-radius:12px;background:var(--accent);display:grid;place-items:center;font-size:20px}.brand small{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0}.top-actions{display:flex;gap:9px;align-items:center}.pill,.btn{border:1px solid var(--line);border-radius:999px;padding:10px 15px;background:#fff;font-weight:700}.btn.dark{background:var(--ink);color:white;border-color:var(--ink)}.btn.lime{background:var(--accent);border-color:var(--accent);color:var(--ink)}.btn.sm{padding:6px 11px;font-size:12px}.hero{background:var(--ink);color:white;border-radius:28px;padding:34px;position:relative;overflow:hidden;min-height:244px;display:flex;align-items:center}.hero:after{content:"";position:absolute;width:290px;height:290px;border:1px solid #ffffff22;border-radius:50%;right:4%;top:-75px;box-shadow:0 0 0 34px #ffffff08,0 0 0 70px #ffffff05}.hero-content{max-width:650px;position:relative;z-index:1}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.7px;color:var(--accent);font-weight:800}.hero h1{font-size:clamp(34px,5vw,57px);line-height:1.02;letter-spacing:-2px;margin:12px 0}.hero p{color:#d4ddd5;max-width:540px;margin:0 0 22px}.searchbox{background:white;border-radius:16px;display:flex;gap:10px;padding:7px;max-width:620px}.searchbox input{border:0;outline:0;flex:1;min-width:0;padding:10px 12px;color:var(--ink)}.section{padding:30px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:17px}.section h2{font-size:25px;letter-spacing:-.8px;margin:0}.sub{color:var(--muted);margin:5px 0 0}.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab{border:1px solid var(--line);border-radius:999px;padding:9px 14px;background:var(--paper);font-weight:700;color:#5d6860}.tab.active{background:var(--ink);border-color:var(--ink);color:#fff}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 3px 12px #13221a05;display:flex;flex-direction:column}.poster{height:158px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;background:#e5eadc;position:relative;overflow:hidden}.poster:after{content:"";position:absolute;width:170px;height:170px;border:1px solid #18231e25;border-radius:50%;right:-45px;bottom:-80px;box-shadow:0 0 0 18px #18231e07,0 0 0 38px #18231e05}.poster.orange{background:#f4d8bb}.poster.lilac{background:#e1dff1}.poster.blue{background:#d7e8e6}.poster .date{font-size:12px;font-weight:850;letter-spacing:1px;text-transform:uppercase;z-index:1}.poster .symbol{font-size:46px;line-height:1;z-index:1}.card-body{padding:17px;display:flex;flex-direction:column;flex:1}.tag{display:inline-flex;background:var(--soft);padding:5px 9px;border-radius:99px;font-size:11px;font-weight:800;color:var(--green)}.tag.draft{background:#fce8e6;color:#a5281b}.card h3{font-size:18px;letter-spacing:-.3px;line-height:1.2;margin:10px 0 7px}.meta{font-size:13px;color:var(--muted);display:flex;gap:7px;align-items:flex-start;margin-top:8px}.card-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);padding-top:13px;margin-top:auto;font-size:13px;font-weight:750}.textlink{border:0;background:none;font-weight:800;padding:0;color:var(--green)}.map-wrap{display:grid;grid-template-columns:1.3fr .7fr;gap:16px}.map-box{height:390px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#e8ece6}.map-side{display:flex;flex-direction:column;gap:10px}.place-row{display:flex;gap:12px;padding:14px;background:white;border:1px solid var(--line);border-radius:15px;cursor:pointer}.place-icon{width:42px;height:42px;flex:0 0 auto;background:var(--soft);border-radius:12px;display:grid;place-items:center;font-size:20px}.place-row h3{margin:1px 0 3px;font-size:15px}.place-row p{margin:0;font-size:12px;color:var(--muted)}.directory{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.org{padding:17px;background:white;border:1px solid var(--line);border-radius:17px;display:flex;gap:12px}.org .place-icon{width:48px;height:48px}.org h3{font-size:15px;margin:2px 0 4px}.org p{font-size:12px;color:var(--muted);margin:0}.empty{padding:24px;border:1px dashed #b9c4b9;border-radius:16px;color:var(--muted);text-align:center;grid-column:1/-1}.footer{border-top:1px solid var(--line);padding:24px 0 36px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px}.admin-panel{display:none;background:white;border:1px solid var(--line);padding:22px;border-radius:20px;margin:20px 0;box-shadow:var(--shadow)}.admin-panel.open{display:block}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.admin-grid input,.admin-grid select,.admin-grid textarea,.auth-box input{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fbfcfa}.admin-grid textarea{min-height:80px;grid-column:1/-1}.admin-list{margin-top:18px;display:grid;gap:8px}.admin-item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px;background:var(--bg);border-radius:12px;flex-wrap:wrap}.admin-actions{display:flex;gap:6px;flex-wrap:wrap}.notice{font-size:12px;color:var(--muted);margin-top:10px}.status-bar{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--soft);color:var(--green)}.status-bar.offline{background:#fff3cd;color:#856404}.auth-box{max-width:420px;display:grid;gap:10px;padding:14px 0}.check-row{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:6px 2px}.check-row input{width:18px;height:18px}.modal-backdrop{position:fixed;inset:0;background:#17221e88;backdrop-filter:blur(4px);display:none;place-items:center;padding:16px;z-index:1200}.modal-backdrop.open{display:grid}.modal{background:#fff;border-radius:22px;max-width:540px;width:100%;padding:24px;border:1px solid var(--line);box-shadow:var(--shadow)}.modal h3{margin:10px 0 8px;font-size:22px}.mobile-nav{display:none}.leaflet-popup-content-wrapper{border-radius:12px}.leaflet-container{font:inherit}.hide{display:none!important}
 @media(max-width:800px){.shell{padding:0 15px}.topbar{height:66px}.top-actions .pill{display:none}.hero{padding:25px 20px;min-height:275px;border-radius:22px}.hero:after{right:-180px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.map-wrap{grid-template-columns:1fr}.map-box{height:310px}.map-side{display:grid;grid-template-columns:1fr 1fr}.directory{grid-template-columns:repeat(2,minmax(0,1fr))}.section{padding:25px 0}.poster{height:130px}.card-body{padding:13px}.card h3{font-size:16px}}
 @media(max-width:520px){.brand{font-size:17px}.brand-mark{width:33px;height:33px}.top-actions .btn{padding:9px 11px;font-size:12px}.hero h1{letter-spacing:-1.3px}.hero p{font-size:14px}.searchbox{gap:3px}.searchbox input{padding:9px 7px}.searchbox .btn{padding:9px 12px}.section-head{align-items:start;flex-direction:column}.grid{grid-template-columns:1fr 1fr;gap:9px}.poster{height:112px;padding:12px}.poster .symbol{font-size:32px}.card-body{padding:11px}.card h3{font-size:14px}.meta{font-size:11px}.card-foot{font-size:11px}.tag{font-size:10px}.map-side{grid-template-columns:1fr}.directory{grid-template-columns:1fr}.admin-grid{grid-template-columns:1fr}.admin-grid textarea{grid-column:auto}.footer{flex-direction:column}.mobile-nav{position:sticky;bottom:0;z-index:900;background:#ffffffef;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 5px calc(9px + env(safe-area-inset-bottom));margin-top:20px}.mobile-nav button{border:0;background:none;display:grid;gap:2px;justify-items:center;font-size:10px;color:var(--muted);font-weight:700}.mobile-nav span{font-size:19px}}
 </style>
 </head>
 <body>
-<header class="shell topbar"><div class="brand"><div class="brand-mark">↗</div><div>рядом<small>Асбест · город рядом</small></div></div><div class="top-actions"><span class="pill">Асбест, Свердловская область</span><button class="btn" id="installBtn" hidden>Установить</button><button class="btn dark" id="adminToggle">Администратор</button></div></header>
+<header class="shell topbar">
+  <div class="brand"><div class="brand-mark">↗</div><div>рядом<small>Асбест · город рядом</small></div></div>
+  <div class="top-actions">
+    <span class="status-bar" id="syncStatus">Загрузка данных…</span>
+    <span class="pill">Асбест, Свердловская область</span>
+    <button class="btn" id="installBtn" hidden>Установить</button>
+    <button class="btn dark" id="adminToggle">Администратор</button>
+  </div>
+</header>
+
 <main class="shell">
-<section class="hero"><div class="hero-content"><div class="eyebrow">Твой город. Твои события.</div><h1>Асбест —<br>интереснее, чем кажется.</h1><p>Находи события, открывай новые места и узнавай, что происходит рядом. Всё городское — в одном приложении.</p><div class="searchbox"><input id="globalSearch" placeholder="Что ищем: концерт, кафе, спорт…" aria-label="Поиск по событиям и организациям"><button class="btn lime" id="searchBtn">Найти ↗</button></div></div></section>
-<section class="admin-panel" id="adminPanel"><div class="section-head"><div><h2>Панель администратора</h2><p class="sub">Демонстрационный режим: данные хранятся только в этом браузере.</p></div><button class="btn" id="closeAdmin">Закрыть</button></div><div class="admin-grid"><select id="itemType"><option value="event">Городское мероприятие</option><option value="org">Организация</option></select><input id="itemTitle" placeholder="Название" required><input id="itemCategory" placeholder="Категория (концерт, кафе…)" required><input id="itemDate" type="date"><input id="itemTime" placeholder="Время / часы работы"><input id="itemAddress" placeholder="Адрес"><input id="itemPrice" placeholder="Цена (например, бесплатно)"><input id="itemEmoji" placeholder="Значок (например, 🎭)"><textarea id="itemDescription" placeholder="Описание"></textarea><button class="btn dark" id="saveItem">Добавить публикацию</button><button class="btn" id="resetForm" type="button">Очистить форму</button></div><p class="notice">Это макет интерфейса, а не защищённая админка. Перед реальным запуском подключим сервер, вход администратора и права доступа.</p><div class="admin-list" id="adminList"></div></section>
-<section class="section" id="eventsSection"><div class="section-head"><div><h2>Афиша города</h2><p class="sub">Планы на сегодня, завтра и ближайшие выходные.</p></div><button class="textlink" id="allEvents">Все события ↗</button></div><div class="tabs" id="eventFilters"><button class="tab active" data-filter="Все">Все события</button><button class="tab" data-filter="Для семьи">Для семьи</button><button class="tab" data-filter="Культура">Культура</button><button class="tab" data-filter="Спорт">Спорт</button><button class="tab" data-filter="Образование">Образование</button></div><div class="grid" id="eventGrid" style="margin-top:16px"></div></section>
-<section class="section" id="mapSection"><div class="section-head"><div><h2>Город на карте</h2><p class="sub">Места, организации и точки притяжения Асбеста.</p></div><span class="tag">Карта и маршруты</span></div><div class="map-wrap"><div class="map-box" id="map" aria-label="Карта города Асбеста"></div><div class="map-side" id="mapPlaces"></div></div><p class="notice">Карта загружается из интернета. Для production-версии выберем картографического поставщика с подходящими условиями использования.</p></section>
-<section class="section" id="directorySection"><div class="section-head"><div><h2>Организации и места</h2><p class="sub">Полезные адреса города — от магазинов до досуга.</p></div><button class="textlink" id="allOrgs">Весь каталог ↗</button></div><div class="tabs" id="orgFilters"><button class="tab active" data-filter="Все">Все</button><button class="tab" data-filter="Еда и напитки">Еда</button><button class="tab" data-filter="Покупки">Покупки</button><button class="tab" data-filter="Досуг">Досуг</button><button class="tab" data-filter="Услуги">Услуги</button></div><div class="directory" id="orgGrid" style="margin-top:16px"></div></section>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Твой город. Твои события.</div>
+      <h1>Асбест —<br>интереснее, чем кажется.</h1>
+      <p>Находи события, открывай новые места и узнавай, что происходит рядом. Всё городское — в одном приложении.</p>
+      <div class="searchbox">
+        <input id="globalSearch" placeholder="Что ищем: концерт, кафе, спорт…" aria-label="Поиск по событиям и организациям">
+        <button class="btn lime" id="searchBtn">Найти ↗</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПАНЕЛЬ АДМИНИСТРАТОРА С АВТОРИЗАЦИЕЙ SUPABASE -->
+  <section class="admin-panel" id="adminPanel">
+    <div class="section-head">
+      <div>
+        <h2>Панель администратора</h2>
+        <p class="sub" id="adminSubtitle">Вход только для авторизованных администраторов проекта.</p>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn hide" id="logoutBtn" type="button">Выйти</button>
+        <button class="btn" id="closeAdmin" type="button">Закрыть</button>
+      </div>
+    </div>
+
+    <!-- Блок входа (показывается, если администратор ещё не вошёл) -->
+    <form class="auth-box" id="authBox" onsubmit="return false">
+      <input id="authEmail" type="email" placeholder="Email администратора" autocomplete="username" required>
+      <input id="authPassword" type="password" placeholder="Пароль" autocomplete="current-password" required>
+      <button class="btn dark" id="loginBtn" type="submit">Войти в панель управления</button>
+      <p class="notice" id="authMessage">Публикация и изменение материалов защищены политиками Row Level Security (RLS).</p>
+    </form>
+
+    <!-- Рабочая область администратора (показывается только после проверки прав is_admin) -->
+    <div id="adminWorkspace" class="hide">
+      <input type="hidden" id="editId" value="">
+      <div class="admin-grid">
+        <select id="itemType">
+          <option value="event">Городское мероприятие (Афиша)</option>
+          <option value="org">Организация / место в каталоге</option>
+        </select>
+        <select id="itemCategory">
+          <option value="Для семьи">Для семьи (Афиша)</option>
+          <option value="Культура">Культура (Афиша)</option>
+          <option value="Спорт">Спорт (Афиша)</option>
+          <option value="Образование">Образование (Афиша)</option>
+          <option value="Еда и напитки">Еда и напитки (Каталог)</option>
+          <option value="Покупки">Покупки (Каталог)</option>
+          <option value="Досуг">Досуг (Каталог)</option>
+          <option value="Услуги">Услуги (Каталог)</option>
+        </select>
+        <input id="itemTitle" placeholder="Название (обязательно)" required>
+        <input id="itemAddress" placeholder="Адрес в Асбесте (например: ул. Уральская, 54)">
+        <input id="itemDate" type="date" title="Дата мероприятия">
+        <input id="itemTime" placeholder="Время начала (напр. 18:00) или часы работы">
+        <input id="itemPrice" placeholder="Цена / вход (для событий) или телефон (для мест)">
+        <input id="itemExtra" placeholder="Организатор (для событий) или сайт/ссылка">
+        <input id="itemLat" type="number" step="any" placeholder="Широта (напр. 57.005) — или кликните по карте">
+        <input id="itemLon" type="number" step="any" placeholder="Долгота (напр. 61.458) — или кликните по карте">
+        <input id="itemEmoji" placeholder="Значок-эмодзи (например: 🎭, ☕, ⚡, 🏛)">
+        <label class="check-row">
+          <input type="checkbox" id="itemPublished" checked>
+          Опубликовано (видно всем посетителям)
+        </label>
+        <textarea id="itemDescription" placeholder="Подробное описание события или организации…"></textarea>
+        <button class="btn dark" id="saveItem" type="button">Сохранить в базу</button>
+        <button class="btn" id="resetForm" type="button">Очистить / Отмена</button>
+      </div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <p class="notice" style="margin:0">Совет: кликните по карте ниже, чтобы автоматически подставить координаты точки в форму.</p>
+        <button class="btn sm" id="seedBtn" type="button">Загрузить стартовые примеры в базу</button>
+      </div>
+      <div class="admin-list" id="adminList"></div>
+    </div>
+  </section>
+
+  <!-- АФИША ГОРОДА -->
+  <section class="section" id="eventsSection">
+    <div class="section-head">
+      <div><h2>Афиша города</h2><p class="sub">Планы на сегодня, завтра и ближайшие выходные.</p></div>
+      <button class="textlink" id="allEvents">Все события ↗</button>
+    </div>
+    <div class="tabs" id="eventFilters">
+      <button class="tab active" data-filter="Все">Все события</button>
+      <button class="tab" data-filter="Для семьи">Для семьи</button>
+      <button class="tab" data-filter="Культура">Культура</button>
+      <button class="tab" data-filter="Спорт">Спорт</button>
+      <button class="tab" data-filter="Образование">Образование</button>
+    </div>
+    <div class="grid" id="eventGrid" style="margin-top:16px"></div>
+  </section>
+
+  <!-- КАРТА ГОРОДА -->
+  <section class="section" id="mapSection">
+    <div class="section-head">
+      <div><h2>Город на карте</h2><p class="sub">Места, организации и точки притяжения Асбеста.</p></div>
+      <span class="tag">Карта и маршруты</span>
+    </div>
+    <div class="map-wrap">
+      <div class="map-box" id="map" aria-label="Карта города Асбеста"></div>
+      <div class="map-side" id="mapPlaces"></div>
+    </div>
+    <p class="notice">Интерактивная карта OpenStreetMap. Нажмите на организацию в списке или маркер на карте для просмотра адреса.</p>
+  </section>
+
+  <!-- КАТАЛОГ ОРГАНИЗАЦИЙ -->
+  <section class="section" id="directorySection">
+    <div class="section-head">
+      <div><h2>Организации и места</h2><p class="sub">Полезные адреса города — от магазинов до досуга.</p></div>
+      <button class="textlink" id="allOrgs">Весь каталог ↗</button>
+    </div>
+    <div class="tabs" id="orgFilters">
+      <button class="tab active" data-filter="Все">Все</button>
+      <button class="tab" data-filter="Еда и напитки">Еда</button>
+      <button class="tab" data-filter="Покупки">Покупки</button>
+      <button class="tab" data-filter="Досуг">Досуг</button>
+      <button class="tab" data-filter="Услуги">Услуги</button>
+    </div>
+    <div class="directory" id="orgGrid" style="margin-top:16px"></div>
+  </section>
 </main>
-<footer class="shell footer"><div>© 2026 · «Рядом» — рабочее название городского сервиса Асбеста.</div><div>Демо-концепция · Проверяйте дату и детали мероприятий у организатора.</div></footer>
-<nav class="mobile-nav"><button onclick="document.querySelector('#eventsSection').scrollIntoView({behavior:'smooth'})"><span>▦</span>Афиша</button><button onclick="document.querySelector('#mapSection').scrollIntoView({behavior:'smooth'})"><span>⌖</span>Карта</button><button onclick="document.querySelector('#directorySection').scrollIntoView({behavior:'smooth'})"><span>▤</span>Места</button><button onclick="document.querySelector('#adminPanel').classList.add('open');document.querySelector('#adminPanel').scrollIntoView({behavior:'smooth'})"><span>＋</span>Добавить</button></nav>
+
+<!-- МОДАЛЬНОЕ ОКНО ПОДРОБНОЙ КАРТОЧКИ -->
+<div class="modal-backdrop" id="detailModal">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span class="tag" id="modalTag">Категория</span>
+      <button class="btn sm" id="closeModal">Закрыть ✕</button>
+    </div>
+    <h3 id="modalTitle">Название</h3>
+    <div class="meta" id="modalMeta1"></div>
+    <div class="meta" id="modalMeta2"></div>
+    <div class="meta" id="modalMeta3"></div>
+    <p id="modalDesc" style="margin:16px 0;line-height:1.55;color:var(--ink)"></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap" id="modalActions"></div>
+  </div>
+</div>
+
+<footer class="shell footer">
+  <div>© 2026 · «Рядом — Асбест» — городской справочник и афиша событий.</div>
+  <div>Уточняйте актуальное расписание и детали мероприятий у организаторов.</div>
+</footer>
+
+<nav class="mobile-nav">
+  <button onclick="document.querySelector('#eventsSection').scrollIntoView({behavior:'smooth'})"><span>▦</span>Афиша</button>
+  <button onclick="document.querySelector('#mapSection').scrollIntoView({behavior:'smooth'})"><span>⌖</span>Карта</button>
+  <button onclick="document.querySelector('#directorySection').scrollIntoView({behavior:'smooth'})"><span>▤</span>Места</button>
+  <button onclick="document.querySelector('#adminPanel').classList.add('open');document.querySelector('#adminPanel').scrollIntoView({behavior:'smooth'})"><span>⚙</span>Админ</button>
+</nav>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const initialEvents=[
-{id:'e1',title:'Городские выходные',category:'Для семьи',date:'2026-11-01',time:'12:00',address:'Центральная городская площадь',price:'Вход свободный',emoji:'🎡',description:'Демонстрационная карточка для будущей городской афиши. Уточните программу и место проведения перед публикацией.',tone:'orange'},
-{id:'e2',title:'Вечер живой музыки',category:'Культура',date:'2026-11-06',time:'19:00',address:'Городской культурный центр',price:'Уточняется',emoji:'♫',description:'Музыкальный вечер для жителей города. Данные являются примером интерфейса, а не подтверждённым событием.',tone:'lilac'},
-{id:'e3',title:'Семейная спортивная встреча',category:'Спорт',date:'2026-11-08',time:'10:00',address:'Городской стадион',price:'Бесплатно',emoji:'⚡',description:'Пример спортивного мероприятия. Организатор, время и адрес требуют подтверждения.',tone:'blue'},
-{id:'e4',title:'Мастерская творчества',category:'Образование',date:'2026-11-14',time:'14:00',address:'Пространство для занятий',price:'По записи',emoji:'✳',description:'Пример карточки мастер-класса для афиши. Добавьте проверенную информацию через админ-панель.',tone:''},
-{id:'e5',title:'Кино и разговор',category:'Культура',date:'2026-11-15',time:'17:30',address:'Культурная площадка города',price:'Уточняется',emoji:'▣',description:'Демонстрационный пример события для проверки дизайна и фильтров.',tone:'orange'},
-{id:'e6',title:'День открытых дверей',category:'Для семьи',date:'2026-11-21',time:'11:00',address:'Городская площадка',price:'Бесплатно',emoji:'⌂',description:'Пример карточки. Дата, место и условия не подтверждены организатором.',tone:'blue'}];
-const initialOrgs=[
-{id:'o1',title:'Городские учреждения',category:'Услуги',address:'Асбест, адрес уточняется',time:'График уточняется',emoji:'🏛',description:'Официальные и общественные учреждения города. Карточка-категория для прототипа.',lat:57.005,lon:61.458},
-{id:'o2',title:'Кафе и места встречи',category:'Еда и напитки',address:'Асбест, адрес уточняется',time:'График уточняется',emoji:'☕',description:'Кафе, кофейни и места, где можно встретиться с друзьями.',lat:57.010,lon:61.455},
-{id:'o3',title:'Магазины рядом',category:'Покупки',address:'Асбест, адрес уточняется',time:'График уточняется',emoji:'🛍',description:'Магазины и полезные покупки в городе.',lat:57.000,lon:61.465},
-{id:'o4',title:'Спорт и активный отдых',category:'Досуг',address:'Асбест, адрес уточняется',time:'График уточняется',emoji:'🏃',description:'Спортивные секции и площадки для активного отдыха.',lat:57.014,lon:61.470},
-{id:'o5',title:'Красота и здоровье',category:'Услуги',address:'Асбест, адрес уточняется',time:'График уточняется',emoji:'✦',description:'Сервисы и услуги для жителей города.',lat:56.997,lon:61.450},
-{id:'o6',title:'Культура и досуг',category:'Досуг',address:'Асбест, адрес уточняется',time:'График уточняется',emoji:'🎭',description:'Места для творчества, отдыха и культурных событий.',lat:57.008,lon:61.475}];
-const load=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))||fallback}catch{return fallback}};let events=load('nearby_asbest_events',initialEvents),orgs=load('nearby_asbest_orgs',initialOrgs),eventFilter='Все',orgFilter='Все',searchTerm='';
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const dateFmt=d=>{if(!d)return 'Дата уточняется';let x=new Date(d+'T12:00:00');return new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long'}).format(x)};
-function renderEvents(){let list=events.filter(e=>(eventFilter==='Все'||e.category===eventFilter)&&(!searchTerm||[e.title,e.category,e.address,e.description].join(' ').toLowerCase().includes(searchTerm)));document.querySelector('#eventGrid').innerHTML=list.length?list.map(e=>`<article class="card"><div class="poster ${esc(e.tone||'')}"><div class="date">${esc(dateFmt(e.date))} · ${esc(e.time||'Время уточняется')}</div><div class="symbol">${esc(e.emoji||'✳')}</div></div><div class="card-body"><span class="tag">${esc(e.category)}</span><h3>${esc(e.title)}</h3><div class="meta">⌖ <span>${esc(e.address||'Место уточняется')}</span></div><div class="meta">◷ <span>${esc(e.price||'Уточняется')}</span></div><p class="sub" style="font-size:12px">${esc(e.description||'')}</p><div class="card-foot"><span>${esc(e.time||'Время уточняется')}</span><button class="textlink" onclick="alert('В рабочей версии здесь будет подробная карточка события и ссылка организатора.')">Подробнее ↗</button></div></div></article>`).join(''):'<div class="empty">Ничего не найдено. Попробуйте изменить фильтр или поисковый запрос.</div>'}
-function renderOrgs(){let list=orgs.filter(o=>(orgFilter==='Все'||o.category===orgFilter)&&(!searchTerm||[o.title,o.category,o.address,o.description].join(' ').toLowerCase().includes(searchTerm)));document.querySelector('#orgGrid').innerHTML=list.length?list.map(o=>`<article class="org"><div class="place-icon">${esc(o.emoji||'⌖')}</div><div><h3>${esc(o.title)}</h3><p>${esc(o.category)} · ${esc(o.time||'График уточняется')}</p><p style="margin-top:5px">⌖ ${esc(o.address||'Адрес уточняется')}</p><button class="textlink" style="margin-top:9px" onclick="focusPlace('${esc(o.id)}')">На карте ↗</button></div></article>`).join(''):'<div class="empty">Организаций по вашему запросу не найдено.</div>';document.querySelector('#mapPlaces').innerHTML=list.slice(0,4).map(o=>`<div class="place-row"><div class="place-icon">${esc(o.emoji||'⌖')}</div><div><h3>${esc(o.title)}</h3><p>${esc(o.address||'Адрес уточняется')}</p><p style="margin-top:5px">${esc(o.category)}</p></div></div>`).join('')||'<div class="empty">Нет объектов для показа.</div>';if(window.cityMap){markers.clearLayers();list.forEach(o=>{if(Number.isFinite(+o.lat)&&Number.isFinite(+o.lon)){L.marker([+o.lat,+o.lon]).bindPopup(`<b>${esc(o.title)}</b><br>${esc(o.category)}<br>${esc(o.address)}`).addTo(markers)}})}}
-function rerender(){renderEvents();renderOrgs();renderAdmin()};document.querySelector('#eventFilters').addEventListener('click',e=>{let b=e.target.closest('button[data-filter]');if(!b)return;eventFilter=b.dataset.filter;document.querySelectorAll('#eventFilters .tab').forEach(x=>x.classList.toggle('active',x===b));renderEvents()});document.querySelector('#orgFilters').addEventListener('click',e=>{let b=e.target.closest('button[data-filter]');if(!b)return;orgFilter=b.dataset.filter;document.querySelectorAll('#orgFilters .tab').forEach(x=>x.classList.toggle('active',x===b));renderOrgs()});function doSearch(){searchTerm=document.querySelector('#globalSearch').value.trim().toLowerCase();rerender();document.querySelector('#eventsSection').scrollIntoView({behavior:'smooth'})}document.querySelector('#searchBtn').onclick=doSearch;document.querySelector('#globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});document.querySelector('#allEvents').onclick=()=>{eventFilter='Все';document.querySelectorAll('#eventFilters .tab').forEach((x,i)=>x.classList.toggle('active',i===0));renderEvents()};document.querySelector('#allOrgs').onclick=()=>{orgFilter='Все';document.querySelectorAll('#orgFilters .tab').forEach((x,i)=>x.classList.toggle('active',i===0));renderOrgs()};
-const panel=document.querySelector('#adminPanel');document.querySelector('#adminToggle').onclick=()=>{panel.classList.toggle('open');if(panel.classList.contains('open'))panel.scrollIntoView({behavior:'smooth'})};document.querySelector('#closeAdmin').onclick=()=>panel.classList.remove('open');document.querySelector('#resetForm').onclick=()=>['itemTitle','itemCategory','itemDate','itemTime','itemAddress','itemPrice','itemEmoji','itemDescription'].forEach(id=>document.getElementById(id).value='');document.querySelector('#saveItem').onclick=()=>{let title=document.querySelector('#itemTitle').value.trim(),category=document.querySelector('#itemCategory').value.trim();if(!title||!category){alert('Заполните название и категорию.');return}let type=document.querySelector('#itemType').value,item={id:'x'+Date.now(),title,category,date:document.querySelector('#itemDate').value,time:document.querySelector('#itemTime').value.trim(),address:document.querySelector('#itemAddress').value.trim()||'Адрес уточняется',price:document.querySelector('#itemPrice').value.trim()||'Уточняется',emoji:document.querySelector('#itemEmoji').value.trim()||(type==='event'?'✳':'⌖'),description:document.querySelector('#itemDescription').value.trim()||'Описание будет добавлено позже.',tone:['','orange','lilac','blue'][Math.floor(Math.random()*4)],lat:57.005+Math.random()*.01,lon:61.455+Math.random()*.01};if(type==='event'){events.unshift(item);localStorage.setItem('nearby_asbest_events',JSON.stringify(events))}else{orgs.unshift(item);localStorage.setItem('nearby_asbest_orgs',JSON.stringify(orgs))}document.querySelector('#resetForm').click();rerender();alert('Добавлено в демонстрационный каталог этого браузера. Для публикации всем пользователям подключим сервер.')};function renderAdmin(){document.querySelector('#adminList').innerHTML=[...events.map(x=>({...x,_type:'event'})),...orgs.map(x=>({...x,_type:'org'}))].map(x=>`<div class="admin-item"><div><b>${esc(x.title)}</b><div class="notice">${x._type==='event'?'Мероприятие':'Организация'} · ${esc(x.category)}</div></div><button class="btn" onclick="deleteItem('${esc(x.id)}','${x._type}')">Удалить</button></div>`).join('')};window.deleteItem=(id,type)=>{if(!confirm('Удалить эту запись из демо?'))return;if(type==='event'){events=events.filter(x=>x.id!==id);localStorage.setItem('nearby_asbest_events',JSON.stringify(events))}else{orgs=orgs.filter(x=>x.id!==id);localStorage.setItem('nearby_asbest_orgs',JSON.stringify(orgs))}rerender()};window.focusPlace=id=>{let o=orgs.find(x=>x.id===id);if(o&&window.cityMap){cityMap.setView([+o.lat,+o.lon],16);document.querySelector('#mapSection').scrollIntoView({behavior:'smooth'})}};
-if(window.L){window.cityMap=L.map('map').setView([57.005,61.458],13);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(cityMap);window.markers=L.layerGroup().addTo(cityMap)}else{document.querySelector('#map').innerHTML='<div style="padding:25px">Для отображения карты требуется интернет-соединение.</div>'}rerender();
-let installPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;let b=document.querySelector('#installBtn');b.hidden=false;b.onclick=async()=>{installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;b.hidden=true}});if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+// 1. КОНФИГУРАЦИЯ SUPABASE (публичный URL и публичный anon/publishable ключ)
+const SUPABASE_URL = 'https://gysgbwhywwxsdmwganhn.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_MLyFxBYE7Rxykqpj0Cs00w_Vjj7ldD3';
+const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+// Стартовые данные на случай первого заполнения базы администратором
+const starterEvents = [
+  {title:'Городские выходные',category:'Для семьи',starts_at:'2026-11-01T12:00:00+05:00',address:'Центральная городская площадь',price_text:'Вход свободный',organizer:'Городская афиша',image_path:'🎡|orange',description:'Семейная программа выходного дня на свежем воздухе. Конкурсы, прогулки и активности для детей и взрослых.',latitude:57.0062,longitude:61.4593,published:true},
+  {title:'Вечер живой музыки',category:'Культура',starts_at:'2026-11-06T19:00:00+05:00',address:'Дворец культуры им. Горького',price_text:'Вход по билетам',organizer:'ДК Асбеста',image_path:'♫|lilac',description:'Концерт местных и приглашённых музыкантов. Живой звук и тёплая атмосфера.',latitude:57.0048,longitude:61.4621,published:true},
+  {title:'Семейная спортивная встреча',category:'Спорт',starts_at:'2026-11-08T10:00:00+05:00',address:'Стадион «Ураласбест»',price_text:'Бесплатно',organizer:'Спортивный клуб',image_path:'⚡|blue',description:'Открытая разминка, пробежка и командные эстафеты для всех желающих.',latitude:57.0021,longitude:61.4712,published:true},
+  {title:'Мастерская творчества и развития',category:'Образование',starts_at:'2026-11-14T14:00:00+05:00',address:'Пространство «Центр притяжения»',price_text:'По предварительной записи',organizer:'Центр притяжения',image_path:'✳|',description:'Практический мастер-класс, настольные и развивающие игры для школьников и взрослых.',latitude:57.0075,longitude:61.4540,published:true}
+];
+
+const starterOrgs = [
+  {title:'Центр притяжения',category:'Досуг',address:'Асбест, уточните адрес',opening_hours:'По расписанию клубов',phone:'',website:'',image_path:'🎭',description:'Пространство развития, творчества, шахматного клуба и городских встреч.',latitude:57.0075,longitude:61.4540,published:true},
+  {title:'Кафе и кофейни в центре',category:'Еда и напитки',address:'ул. Уральская / пр. Ленина',opening_hours:'09:00 – 21:00',phone:'',website:'',image_path:'☕',description:'Уютные места для встреч с друзьями, кофе с собой и семейного обеда.',latitude:57.0095,longitude:61.4565,published:true},
+  {title:'Дворец культуры им. М. Горького',category:'Досуг',address:'ул. Осипенко, 32',opening_hours:'09:00 – 20:00',phone:'',website:'',image_path:'🏛',description:'Главная культурная площадка города: концерты, спектакли, творческие коллективы.',latitude:57.0048,longitude:61.4621,published:true},
+  {title:'Стадион и спортивный комплекс',category:'Досуг',address:'Асбест, спортивный квартал',opening_hours:'08:00 – 21:00',phone:'',website:'',image_path:'🏃',description:'Спортивные секции, беговые дорожки и площадки для активного отдыха.',latitude:57.0021,longitude:61.4712,published:true},
+  {title:'Городские магазины и ТЦ',category:'Покупки',address:'пр. Ленина',opening_hours:'10:00 – 21:00',phone:'',website:'',image_path:'🛍',description:'Повседневные покупки, товары для дома и семьи.',latitude:57.0060,longitude:61.4630,published:true},
+  {title:'Сервисы и бытовые услуги',category:'Услуги',address:'Центральный район',opening_hours:'09:00 – 19:00',phone:'',website:'',image_path:'✦',description:'Полезные городские сервисы, мастерские и услуги для жителей.',latitude:56.9995,longitude:61.4520,published:true}
+];
+
+// Кэш в localStorage для поддержки офлайн-режима PWA
+const CACHE_EVENTS_KEY = 'ryadom_asbest_db_events_v2';
+const CACHE_ORGS_KEY = 'ryadom_asbest_db_orgs_v2';
+const loadCache = (key) => { try { return JSON.parse(localStorage.getItem(key)) || []; } catch { return []; } };
+const saveCache = (key, data) => { try { localStorage.setItem(key, JSON.stringify(data)); } catch {} };
+
+let events = loadCache(CACHE_EVENTS_KEY);
+let orgs = loadCache(CACHE_ORGS_KEY);
+let eventFilter = 'Все', orgFilter = 'Все', searchTerm = '';
+let isAdmin = false, currentUser = null;
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// Разбор значка и цветового тона из поля image_path (например "🎡|orange")
+function parseVisual(imagePath, fallbackEmoji) {
+  if (!imagePath) return { emoji: fallbackEmoji, tone: '' };
+  const parts = String(imagePath).split('|');
+  return { emoji: parts[0] || fallbackEmoji, tone: parts[1] || '' };
+}
+
+function formatEventDateTime(isoStr) {
+  if (!isoStr) return { dateText: 'Дата уточняется', timeText: 'Время уточняется', rawDate: '', rawTime: '' };
+  const d = new Date(isoStr);
+  if (isNaN(d.getTime())) return { dateText: 'Дата уточняется', timeText: 'Время уточняется', rawDate: '', rawTime: '' };
+  const dateText = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long' }).format(d);
+  const timeText = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit' }).format(d);
+  const rawDate = d.toISOString().slice(0, 10);
+  return { dateText, timeText, rawDate, rawTime: timeText };
+}
+
+function setStatus(text, isOffline = false) {
+  const el = document.querySelector('#syncStatus');
+  if (!el) return;
+  el.textContent = text;
+  el.classList.toggle('offline', isOffline);
+}
+
+// 2. ЗАГРУЗКА ДАННЫХ ИЗ SUPABASE С ОФЛАЙН-РЕЗЕРВОМ
+async function fetchAllData() {
+  if (!sb) {
+    setStatus('Офлайн-режим (кэш)', true);
+    rerender();
+    return;
+  }
+  try {
+    setStatus('Обновление…');
+    const [evRes, orgRes] = await Promise.all([
+      sb.from('events').select('*').order('starts_at', { ascending: true, nullsFirst: false }),
+      sb.from('organizations').select('*').order('created_at', { ascending: false })
+    ]);
+
+    if (evRes.error) throw evRes.error;
+    if (orgRes.error) throw orgRes.error;
+
+    events = evRes.data || [];
+    orgs = orgRes.data || [];
+
+    saveCache(CACHE_EVENTS_KEY, events);
+    saveCache(CACHE_ORGS_KEY, orgs);
+    setStatus('Онлайн · База синхронизирована');
+  } catch (err) {
+    console.warn('Ошибка загрузки из Supabase, используем локальный кэш:', err.message);
+    events = loadCache(CACHE_EVENTS_KEY);
+    orgs = loadCache(CACHE_ORGS_KEY);
+    setStatus('Офлайн-режим (показаны сохранённые данные)', true);
+  }
+  rerender();
+}
+
+// 3. ОТРИСОВКА АФИШИ, КАТАЛОГА, КАРТЫ И АДМИНКИ
+function renderEvents() {
+  const list = events.filter(e => {
+    if (!isAdmin && !e.published) return false;
+    const matchFilter = eventFilter === 'Все' || e.category === eventFilter;
+    const matchSearch = !searchTerm || [e.title, e.category, e.address, e.description, e.organizer].join(' ').toLowerCase().includes(searchTerm);
+    return matchFilter && matchSearch;
+  });
+
+  const tones = ['orange', 'lilac', 'blue', ''];
+  document.querySelector('#eventGrid').innerHTML = list.length ? list.map((e, idx) => {
+    const vis = parseVisual(e.image_path, '✳');
+    const tone = vis.tone || tones[idx % tones.length];
+    const dt = formatEventDateTime(e.starts_at);
+    const draftBadge = !e.published ? '<span class="tag draft" style="margin-left:6px">Черновик</span>' : '';
+    return `<article class="card">
+      <div class="poster ${esc(tone)}">
+        <div class="date">${esc(dt.dateText)} · ${esc(dt.timeText)}</div>
+        <div class="symbol">${esc(vis.emoji)}</div>
+      </div>
+      <div class="card-body">
+        <div><span class="tag">${esc(e.category)}</span>${draftBadge}</div>
+        <h3>${esc(e.title)}</h3>
+        <div class="meta">⌖ <span>${esc(e.address || 'Место уточняется')}</span></div>
+        <div class="meta">◷ <span>${esc(e.price_text || 'Вход уточняется')}</span></div>
+        <p class="sub" style="font-size:12px;margin-bottom:12px">${esc(e.description || '')}</p>
+        <div class="card-foot">
+          <span>${esc(e.organizer || dt.timeText)}</span>
+          <button class="textlink" onclick="openDetail('${esc(e.id)}','event')">Подробнее ↗</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('') : '<div class="empty">Пока нет опубликованных событий по этому фильтру.</div>';
+}
+
+function renderOrgs() {
+  const list = orgs.filter(o => {
+    if (!isAdmin && !o.published) return false;
+    const matchFilter = orgFilter === 'Все' || o.category === orgFilter;
+    const matchSearch = !searchTerm || [o.title, o.category, o.address, o.description].join(' ').toLowerCase().includes(searchTerm);
+    return matchFilter && matchSearch;
+  });
+
+  document.querySelector('#orgGrid').innerHTML = list.length ? list.map(o => {
+    const vis = parseVisual(o.image_path, '⌖');
+    const draftBadge = !o.published ? ' · <span style="color:#a5281b;font-weight:700">Черновик</span>' : '';
+    return `<article class="org">
+      <div class="place-icon">${esc(vis.emoji)}</div>
+      <div style="flex:1">
+        <h3>${esc(o.title)}</h3>
+        <p>${esc(o.category)} · ${esc(o.opening_hours || 'График уточняется')}${draftBadge}</p>
+        <p style="margin-top:5px">⌖ ${esc(o.address || 'Адрес уточняется')}</p>
+        <div style="display:flex;gap:12px;margin-top:9px">
+          <button class="textlink" onclick="focusPlace('${esc(o.id)}')">На карте ↗</button>
+          <button class="textlink" onclick="openDetail('${esc(o.id)}','org')">Подробнее</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('') : '<div class="empty">Организаций по вашему запросу пока нет.</div>';
+
+  document.querySelector('#mapPlaces').innerHTML = list.slice(0, 4).map(o => {
+    const vis = parseVisual(o.image_path, '⌖');
+    return `<div class="place-row" onclick="focusPlace('${esc(o.id)}')">
+      <div class="place-icon">${esc(vis.emoji)}</div>
+      <div>
+        <h3>${esc(o.title)}</h3>
+        <p>${esc(o.address || 'Адрес уточняется')}</p>
+        <p style="margin-top:5px">${esc(o.category)}</p>
+      </div>
+    </div>`;
+  }).join('') || '<div class="empty">Нет объектов для показа на карте.</div>';
+
+  if (window.cityMap && window.markers) {
+    window.markers.clearLayers();
+    list.forEach(o => {
+      const lat = parseFloat(o.latitude), lon = parseFloat(o.longitude);
+      if (Number.isFinite(lat) && Number.isFinite(lon)) {
+        L.marker([lat, lon])
+          .bindPopup(`<b>${esc(o.title)}</b><br>${esc(o.category)}<br>${esc(o.address || '')}`)
+          .addTo(window.markers);
+      }
+    });
+  }
+}
+
+function renderAdmin() {
+  if (!isAdmin) return;
+  const combined = [
+    ...events.map(x => ({ ...x, _type: 'event' })),
+    ...orgs.map(x => ({ ...x, _type: 'org' }))
+  ];
+  const container = document.querySelector('#adminList');
+  if (!combined.length) {
+    container.innerHTML = '<div class="empty">В базе пока нет записей. Нажмите «Загрузить стартовые примеры в базу» или добавьте первую карточку через форму выше.</div>';
+    return;
+  }
+  container.innerHTML = combined.map(x => {
+    const statusText = x.published ? '<span style="color:var(--green)">● Опубликовано</span>' : '<span style="color:#a5281b">○ Черновик</span>';
+    return `<div class="admin-item">
+      <div>
+        <b>${esc(x.title)}</b>
+        <div class="notice" style="margin-top:3px">${x._type === 'event' ? 'Мероприятие' : 'Организация'} · ${esc(x.category)} · ${statusText}</div>
+      </div>
+      <div class="admin-actions">
+        <button class="btn sm" onclick="togglePublish('${esc(x.id)}','${x._type}',${!x.published})">${x.published ? 'Снять с публ.' : 'Опубликовать'}</button>
+        <button class="btn sm" onclick="editItem('${esc(x.id)}','${x._type}')">Изменить</button>
+        <button class="btn sm" onclick="deleteItem('${esc(x.id)}','${x._type}')">Удалить</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function rerender() {
+  renderEvents();
+  renderOrgs();
+  renderAdmin();
+}
+
+// 4. МОДАЛЬНОЕ ОКНО ПОДРОБНОСТЕЙ
+window.openDetail = (id, type) => {
+  const item = (type === 'event' ? events : orgs).find(x => x.id === id);
+  if (!item) return;
+  document.querySelector('#modalTag').textContent = item.category;
+  document.querySelector('#modalTitle').textContent = item.title;
+  document.querySelector('#modalDesc').textContent = item.description || 'Подробное описание скоро появится.';
+
+  if (type === 'event') {
+    const dt = formatEventDateTime(item.starts_at);
+    document.querySelector('#modalMeta1').innerHTML = `📅 <span>${esc(dt.dateText)} в ${esc(dt.timeText)}</span>`;
+    document.querySelector('#modalMeta2').innerHTML = `⌖ <span>${esc(item.address || 'Место уточняется')}</span>`;
+    document.querySelector('#modalMeta3').innerHTML = `🎟 <span>${esc(item.price_text || 'Уточняется')} ${item.organizer ? '· Организатор: ' + esc(item.organizer) : ''}</span>`;
+  } else {
+    document.querySelector('#modalMeta1').innerHTML = `⌖ <span>${esc(item.address || 'Адрес уточняется')}</span>`;
+    document.querySelector('#modalMeta2').innerHTML = `◷ <span>${esc(item.opening_hours || 'График работы уточняется')}</span>`;
+    document.querySelector('#modalMeta3').innerHTML = item.phone ? `📞 <span>${esc(item.phone)}</span>` : '';
+  }
+
+  const actions = [];
+  if (Number.isFinite(parseFloat(item.latitude)) && Number.isFinite(parseFloat(item.longitude))) {
+    actions.push(`<button class="btn dark sm" onclick="closeDetailModal();focusCoords(${parseFloat(item.latitude)},${parseFloat(item.longitude)},'${esc(item.title)}')">Показать на карте ↗</button>`);
+  }
+  const link = item.registration_url || item.website;
+  if (link && /^https?:\/\//i.test(link)) {
+    actions.push(`<a class="btn sm" href="${esc(link)}" target="_blank" rel="noopener noreferrer">Перейти по ссылке ↗</a>`);
+  }
+  document.querySelector('#modalActions').innerHTML = actions.join('');
+  document.querySelector('#detailModal').classList.add('open');
+};
+
+function closeDetailModal() {
+  document.querySelector('#detailModal').classList.remove('open');
+}
+document.querySelector('#closeModal').onclick = closeDetailModal;
+document.querySelector('#detailModal').addEventListener('click', e => {
+  if (e.target.id === 'detailModal') closeDetailModal();
+});
+
+// 5. АВТОРИЗАЦИЯ И ПРОВЕРКА ПРАВ АДМИНИСТРАТОРА (admin_users)
+async function checkAdminSession() {
+  if (!sb) return;
+  const { data: { session } } = await sb.auth.getSession();
+  await applySession(session);
+
+  sb.auth.onAuthStateChange(async (_event, session) => {
+    await applySession(session);
+  });
+}
+
+async function applySession(session) {
+  currentUser = session?.user || null;
+  isAdmin = false;
+
+  if (currentUser) {
+    const { data, error } = await sb
+      .from('admin_users')
+      .select('user_id')
+      .eq('user_id', currentUser.id)
+      .maybeSingle();
+
+    isAdmin = !error && !!data;
+  }
+
+  const authBox = document.querySelector('#authBox');
+  const workspace = document.querySelector('#adminWorkspace');
+  const logoutBtn = document.querySelector('#logoutBtn');
+  const subtitle = document.querySelector('#adminSubtitle');
+  const adminToggle = document.querySelector('#adminToggle');
+
+  if (currentUser && isAdmin) {
+    authBox.classList.add('hide');
+    workspace.classList.remove('hide');
+    logoutBtn.classList.remove('hide');
+    subtitle.textContent = `Вы вошли как администратор: ${currentUser.email}`;
+    adminToggle.textContent = 'Админ ●';
+  } else if (currentUser && !isAdmin) {
+    authBox.classList.remove('hide');
+    workspace.classList.add('hide');
+    logoutBtn.classList.remove('hide');
+    subtitle.textContent = `У пользователя ${currentUser.email} нет прав в таблице admin_users.`;
+    adminToggle.textContent = 'Администратор';
+  } else {
+    authBox.classList.remove('hide');
+    workspace.classList.add('hide');
+    logoutBtn.classList.add('hide');
+    subtitle.textContent = 'Вход только для авторизованных администраторов проекта.';
+    adminToggle.textContent = 'Администратор';
+  }
+
+  await fetchAllData();
+}
+
+document.querySelector('#authBox').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!sb) return;
+  const email = document.querySelector('#authEmail').value.trim();
+  const password = document.querySelector('#authPassword').value;
+  const msg = document.querySelector('#authMessage');
+  msg.textContent = 'Проверка учётных данных…';
+
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) {
+    msg.textContent = 'Ошибка входа: ' + error.message;
+    return;
+  }
+  document.querySelector('#authPassword').value = '';
+  msg.textContent = 'Вход выполнен успешно.';
+});
+
+document.querySelector('#logoutBtn').onclick = async () => {
+  if (!sb) return;
+  await sb.auth.signOut();
+};
+
+// 6. СОЗДАНИЕ, РЕДАКТИРОВАНИЕ, ПУБЛИКАЦИЯ И УДАЛЕНИЕ В БАЗЕ SUPABASE
+function clearForm() {
+  ['editId','itemTitle','itemAddress','itemDate','itemTime','itemPrice','itemExtra','itemLat','itemLon','itemEmoji','itemDescription'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.querySelector('#itemPublished').checked = true;
+  document.querySelector('#saveItem').textContent = 'Сохранить в базу';
+}
+document.querySelector('#resetForm').onclick = clearForm;
+
+document.querySelector('#saveItem').onclick = async () => {
+  if (!isAdmin || !sb) {
+    alert('Действие доступно только авторизованному администратору.');
+    return;
+  }
+  const type = document.querySelector('#itemType').value;
+  const editId = document.querySelector('#editId').value.trim();
+  const title = document.querySelector('#itemTitle').value.trim();
+  const category = document.querySelector('#itemCategory').value.trim();
+  const address = document.querySelector('#itemAddress').value.trim();
+  const dateVal = document.querySelector('#itemDate').value;
+  const timeVal = document.querySelector('#itemTime').value.trim();
+  const priceOrPhone = document.querySelector('#itemPrice').value.trim();
+  const extraVal = document.querySelector('#itemExtra').value.trim();
+  const latVal = parseFloat(document.querySelector('#itemLat').value);
+  const lonVal = parseFloat(document.querySelector('#itemLon').value);
+  const emojiVal = document.querySelector('#itemEmoji').value.trim();
+  const description = document.querySelector('#itemDescription').value.trim();
+  const published = document.querySelector('#itemPublished').checked;
+
+  if (!title || !category) {
+    alert('Пожалуйста, заполните название и категорию.');
+    return;
+  }
+
+  const latitude = Number.isFinite(latVal) ? latVal : 57.0055;
+  const longitude = Number.isFinite(lonVal) ? lonVal : 61.4585;
+
+  let payload, table;
+  if (type === 'event') {
+    table = 'events';
+    let starts_at = null;
+    if (dateVal) {
+      const cleanTime = /^\d{2}:\d{2}$/.test(timeVal) ? timeVal : '12:00';
+      starts_at = `${dateVal}T${cleanTime}:00+05:00`;
+    }
+    payload = {
+      title,
+      category,
+      description,
+      starts_at,
+      address,
+      latitude,
+      longitude,
+      price_text: priceOrPhone || 'Вход свободный',
+      organizer: extraVal || 'Городская афиша',
+      image_path: emojiVal || '✳|orange',
+      published
+    };
+  } else {
+    table = 'organizations';
+    payload = {
+      title,
+      category,
+      description,
+      address,
+      opening_hours: timeVal || 'График уточняется',
+      phone: priceOrPhone || null,
+      website: extraVal || null,
+      latitude,
+      longitude,
+      image_path: emojiVal || '⌖',
+      published
+    };
+  }
+
+  const btn = document.querySelector('#saveItem');
+  btn.disabled = true;
+  btn.textContent = 'Сохранение…';
+
+  try {
+    let res;
+    if (editId) {
+      res = await sb.from(table).update(payload).eq('id', editId);
+    } else {
+      res = await sb.from(table).insert([payload]);
+    }
+    if (res.error) throw res.error;
+    clearForm();
+    await fetchAllData();
+  } catch (err) {
+    alert('Ошибка сохранения в базу: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Сохранить в базу';
+  }
+};
+
+window.editItem = (id, type) => {
+  const item = (type === 'event' ? events : orgs).find(x => x.id === id);
+  if (!item) return;
+  document.querySelector('#editId').value = item.id;
+  document.querySelector('#itemType').value = type;
+  document.querySelector('#itemTitle').value = item.title || '';
+  document.querySelector('#itemCategory').value = item.category || 'Для семьи';
+  document.querySelector('#itemAddress').value = item.address || '';
+  document.querySelector('#itemLat').value = item.latitude ?? '';
+  document.querySelector('#itemLon').value = item.longitude ?? '';
+  document.querySelector('#itemEmoji').value = parseVisual(item.image_path, '').emoji;
+  document.querySelector('#itemDescription').value = item.description || '';
+  document.querySelector('#itemPublished').checked = !!item.published;
+
+  if (type === 'event') {
+    const dt = formatEventDateTime(item.starts_at);
+    document.querySelector('#itemDate').value = dt.rawDate;
+    document.querySelector('#itemTime').value = dt.rawTime;
+    document.querySelector('#itemPrice').value = item.price_text || '';
+    document.querySelector('#itemExtra').value = item.organizer || '';
+  } else {
+    document.querySelector('#itemDate').value = '';
+    document.querySelector('#itemTime').value = item.opening_hours || '';
+    document.querySelector('#itemPrice').value = item.phone || '';
+    document.querySelector('#itemExtra').value = item.website || '';
+  }
+
+  document.querySelector('#saveItem').textContent = 'Обновить запись';
+  document.querySelector('#adminPanel').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.togglePublish = async (id, type, newState) => {
+  if (!isAdmin || !sb) return;
+  const table = type === 'event' ? 'events' : 'organizations';
+  const { error } = await sb.from(table).update({ published: newState }).eq('id', id);
+  if (error) {
+    alert('Ошибка изменения статуса: ' + error.message);
+    return;
+  }
+  await fetchAllData();
+};
+
+window.deleteItem = async (id, type) => {
+  if (!isAdmin || !sb) return;
+  if (!confirm('Удалить эту карточку из общей базы данных?')) return;
+  const table = type === 'event' ? 'events' : 'organizations';
+  const { error } = await sb.from(table).delete().eq('id', id);
+  if (error) {
+    alert('Ошибка удаления: ' + error.message);
+    return;
+  }
+  await fetchAllData();
+};
+
+document.querySelector('#seedBtn').onclick = async () => {
+  if (!isAdmin || !sb) return;
+  if (!confirm('Загрузить стартовый набор событий и организаций в базу данных?')) return;
+  try {
+    const [r1, r2] = await Promise.all([
+      sb.from('events').insert(starterEvents),
+      sb.from('organizations').insert(starterOrgs)
+    ]);
+    if (r1.error) throw r1.error;
+    if (r2.error) throw r2.error;
+    await fetchAllData();
+    alert('Стартовые карточки успешно загружены и опубликованы!');
+  } catch (err) {
+    alert('Ошибка при загрузке примеров: ' + err.message);
+  }
+};
+
+// 7. ФИЛЬТРЫ, ПОИСК И ИНТЕРАКТИВНАЯ КАРТА LEAFLET
+document.querySelector('#eventFilters').addEventListener('click', e => {
+  const b = e.target.closest('button[data-filter]');
+  if (!b) return;
+  eventFilter = b.dataset.filter;
+  document.querySelectorAll('#eventFilters .tab').forEach(x => x.classList.toggle('active', x === b));
+  renderEvents();
+});
+
+document.querySelector('#orgFilters').addEventListener('click', e => {
+  const b = e.target.closest('button[data-filter]');
+  if (!b) return;
+  orgFilter = b.dataset.filter;
+  document.querySelectorAll('#orgFilters .tab').forEach(x => x.classList.toggle('active', x === b));
+  renderOrgs();
+});
+
+function doSearch() {
+  searchTerm = document.querySelector('#globalSearch').value.trim().toLowerCase();
+  rerender();
+  document.querySelector('#eventsSection').scrollIntoView({ behavior: 'smooth' });
+}
+document.querySelector('#searchBtn').onclick = doSearch;
+document.querySelector('#globalSearch').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doSearch();
+});
+
+document.querySelector('#allEvents').onclick = () => {
+  eventFilter = 'Все';
+  document.querySelectorAll('#eventFilters .tab').forEach((x, i) => x.classList.toggle('active', i === 0));
+  renderEvents();
+};
+
+document.querySelector('#allOrgs').onclick = () => {
+  orgFilter = 'Все';
+  document.querySelectorAll('#orgFilters .tab').forEach((x, i) => x.classList.toggle('active', i === 0));
+  renderOrgs();
+};
+
+const panel = document.querySelector('#adminPanel');
+document.querySelector('#adminToggle').onclick = () => {
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) panel.scrollIntoView({ behavior: 'smooth' });
+};
+document.querySelector('#closeAdmin').onclick = () => panel.classList.remove('open');
+
+window.focusCoords = (lat, lon, title) => {
+  if (window.cityMap && Number.isFinite(lat) && Number.isFinite(lon)) {
+    window.cityMap.setView([lat, lon], 16);
+    L.popup().setLatLng([lat, lon]).setContent(`<b>${esc(title)}</b>`).openOn(window.cityMap);
+    document.querySelector('#mapSection').scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
+window.focusPlace = id => {
+  const o = orgs.find(x => x.id === id);
+  if (o) window.focusCoords(parseFloat(o.latitude), parseFloat(o.longitude), o.title);
+};
+
+if (window.L) {
+  window.cityMap = L.map('map').setView([57.005, 61.458], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(window.cityMap);
+  window.markers = L.layerGroup().addTo(window.cityMap);
+
+  // Помощник для администратора: клик по карте подставляет координаты в форму
+  window.cityMap.on('click', e => {
+    if (!isAdmin) return;
+    document.querySelector('#itemLat').value = e.latlng.lat.toFixed(5);
+    document.querySelector('#itemLon').value = e.latlng.lng.toFixed(5);
+  });
+} else {
+  document.querySelector('#map').innerHTML = '<div style="padding:25px">Для отображения интерактивной карты требуется подключение к интернету.</div>';
+}
+
+// 8. УСТАНОВКА PWA И SERVICE WORKER
+let installPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  installPrompt = e;
+  const b = document.querySelector('#installBtn');
+  b.hidden = false;
+  b.onclick = async () => {
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    installPrompt = null;
+    b.hidden = true;
+  };
+});
+
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+
+// Старт приложения
+checkAdminSession();
 </script>
-</body></html>
+</body>
+</html>
