@@ -739,12 +739,18 @@ window.focusPlace = id => {
 };
 
 if (window.L) {
-  window.cityMap = L.map('map').setView([57.005, 61.458], 13);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(window.cityMap);
-  window.markers = L.layerGroup().addTo(window.cityMap);
+  window.cityMap = L.map('map', {
+  zoomControl: true,
+  fadeAnimation: true,
+  zoomAnimation: true
+}).setView([57.005, 61.458], 13);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  minZoom: 10,
+  keepBuffer: 4,
+  attribution: '&copy; OpenStreetMap'
+}).addTo(window.cityMap);
 
   window.cityMap.on('click', e => {
     if (!isAdmin) return;
