@@ -1,0 +1,15 @@
+{
+  "id": "/",
+  "name": "Рядом — Асбест",
+  "short_name": "Рядом",
+  "description": "Городская афиша, карта и каталог организаций Асбеста",
+  "lang": "ru-RU",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f5f1",
+  "theme_color": "#17221e",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
